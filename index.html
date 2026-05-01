@@ -4,19 +4,21 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BCC Documentation Assistant</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bcc-navy:   #1a2f4e;
-      --bcc-blue:   #00539b;
-      --bcc-gold:   #c8a84b;
-      --bcc-light:  #f4f6f9;
-      --bcc-white:  #ffffff;
+      --bcc-navy: #1a2f4e;
+      --bcc-blue: #00539b;
+      --bcc-gold: #c8a84b;
+      --bcc-light: #f4f6f9;
+      --bcc-white: #ffffff;
       --bcc-border: #dde3ec;
-      --bcc-muted:  #6b7a92;
-      --radius:     12px;
+      --bcc-muted: #6b7a92;
+      --radius: 12px;
     }
 
     html, body {
@@ -26,7 +28,6 @@
       color: var(--bcc-navy);
     }
 
-    /* ── Header ─────────────────────────────────── */
     header {
       background: var(--bcc-navy);
       color: var(--bcc-white);
@@ -36,7 +37,6 @@
       align-items: center;
       justify-content: space-between;
       box-shadow: 0 2px 12px rgba(0,0,0,0.18);
-      position: relative;
       z-index: 10;
     }
 
@@ -58,66 +58,32 @@
       font-size: 18px;
       color: var(--bcc-navy);
       font-weight: 600;
-      flex-shrink: 0;
     }
 
     .header-title {
       font-family: 'Playfair Display', serif;
       font-size: 19px;
       font-weight: 600;
-      letter-spacing: 0.01em;
       line-height: 1.2;
     }
 
     .header-sub {
-      font-family: 'DM Sans', sans-serif;
       font-size: 11px;
       font-weight: 300;
-      color: rgba(255,255,255,0.55);
+      color: rgba(255,255,255,0.6);
       letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #4cde8f;
-      box-shadow: 0 0 6px #4cde8f88;
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.45; }
-    }
-
-    .status-label {
-      font-size: 12px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.6);
-      letter-spacing: 0.04em;
-    }
-
-    /* ── Layout ─────────────────────────────────── */
     .layout {
       display: grid;
       grid-template-columns: 300px 1fr;
       height: calc(100vh - 64px);
     }
 
-    /* ── Sidebar ─────────────────────────────────── */
     aside {
       background: var(--bcc-white);
       border-right: 1px solid var(--bcc-border);
-      display: flex;
-      flex-direction: column;
       padding: 1.75rem 1.5rem;
       overflow-y: auto;
     }
@@ -142,91 +108,12 @@
     .info-card p {
       font-size: 13px;
       font-weight: 300;
-      color: #3d4f6a;
-      line-height: 1.65;
-    }
-
-    .info-card strong {
-      font-weight: 500;
-      color: var(--bcc-navy);
-    }
-
-    .divider {
-      height: 1px;
-      background: var(--bcc-border);
-      margin: 1.25rem 0;
-    }
-
-    .capability-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .capability-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      font-size: 13px;
-      font-weight: 300;
-      color: #3d4f6a;
-      line-height: 1.5;
-    }
-
-    .cap-icon {
-      width: 20px;
-      height: 20px;
-      border-radius: 6px;
-      background: var(--bcc-blue);
-      flex-shrink: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 1px;
-    }
-
-    .cap-icon svg {
-      width: 11px;
-      height: 11px;
-      fill: none;
-      stroke: #fff;
-      stroke-width: 2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .badge {
-      display: inline-block;
-      background: #e8f0fb;
-      color: var(--bcc-blue);
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      padding: 3px 9px;
-      border-radius: 20px;
-      margin-top: 1.25rem;
-    }
-
-    .aside-footer {
-      margin-top: auto;
-      padding-top: 1.5rem;
-    }
-
-    .aside-footer p {
-      font-size: 11px;
-      color: var(--bcc-muted);
       line-height: 1.6;
-      font-weight: 300;
     }
 
-    /* ── Chat area ─────────────────────────────────── */
     main {
       display: flex;
       flex-direction: column;
-      background: var(--bcc-light);
-      position: relative;
       overflow: hidden;
     }
 
@@ -239,150 +126,89 @@
       gap: 12px;
     }
 
-    .chat-header-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, var(--bcc-blue), #003f78);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .chat-header-icon svg {
-      width: 18px;
-      height: 18px;
-      fill: none;
-      stroke: #fff;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .chat-header-text h2 {
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--bcc-navy);
-    }
-
-    .chat-header-text p {
-      font-size: 12px;
-      color: var(--bcc-muted);
-      font-weight: 300;
-    }
-
     .chat-frame-wrap {
       flex: 1;
       padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
     }
 
     iframe {
-      flex: 1;
       width: 100%;
       height: 100%;
       border: none;
       border-radius: var(--radius);
-      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
       background: var(--bcc-white);
-      min-height: 0;
     }
 
-    /* ── Responsive ─────────────────────────────────── */
     @media (max-width: 768px) {
       .layout { grid-template-columns: 1fr; }
       aside { display: none; }
     }
   </style>
 </head>
+
 <body>
 
-  <header>
-    <div class="header-left">
-      <div class="logo-mark">B</div>
-      <div>
-        <div class="header-title">British Chambers of Commerce</div>
-        <div class="header-sub">Documentation Assistant — Test Environment</div>
-      </div>
+<header>
+  <div class="header-left">
+    <div class="logo-mark">B</div>
+    <div>
+      <div class="header-title">British Chambers of Commerce</div>
+      <div class="header-sub">Documentation Assistant</div>
     </div>
-    <div class="header-right">
-      <div class="status-dot"></div>
-      <span class="status-label">Agent online</span>
-    </div>
-  </header>
-
-  <div class="layout">
-
-    <aside>
-      <p class="aside-heading">About this assistant</p>
-      <div class="info-card">
-        <p>This is the <strong>BCC Documentation Assistant V3</strong>, a Copilot Studio agent built to help chamber staff and members navigate documentation, processes, and guidance across the UK chamber network.</p>
-      </div>
-
-      <p class="aside-heading">Capabilities</p>
-      <ul class="capability-list">
-        <li>
-          <span class="cap-icon">
-            <svg viewBox="0 0 12 12"><path d="M1 6h10M6 1v10"/></svg>
-          </span>
-          Answer questions about chamber documentation
-        </li>
-        <li>
-          <span class="cap-icon">
-            <svg viewBox="0 0 12 12"><path d="M2 3h8M2 6h6M2 9h4"/></svg>
-          </span>
-          Explain certificate types: EC-COO, A-BCC, EUR1 and more
-        </li>
-        <li>
-          <span class="cap-icon">
-            <svg viewBox="0 0 12 12"><circle cx="6" cy="6" r="4.5"/><path d="M6 4v2.5l2 1"/></svg>
-          </span>
-          Guide users through processes step by step
-        </li>
-        <li>
-          <span class="cap-icon">
-            <svg viewBox="0 0 12 12"><path d="M9.5 2.5l-7 7M2.5 2.5l7 7" stroke-width="1.8"/></svg>
-          </span>
-          Clarify rules, requirements and accreditation
-        </li>
-      </ul>
-
-      <span class="badge">Beta test</span>
-
-      <div class="divider"></div>
-
-      <p class="aside-heading">Instructions</p>
-      <div class="info-card">
-        <p>Type your question in the chat window. The agent will respond using BCC guidance and documentation knowledge. Please report any unexpected responses for review.</p>
-      </div>
-
-      <div class="aside-footer">
-        <p>Powered by Microsoft Copilot Studio &nbsp;·&nbsp; British Chambers of Commerce &copy; 2025</p>
-      </div>
-    </aside>
-
-    <main>
-      <div class="chat-header">
-        <div class="chat-header-icon">
-          <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        </div>
-        <div class="chat-header-text">
-          <h2>BCC Documentation Assistant V3</h2>
-          <p>Ask me anything about chamber documentation and certification</p>
-        </div>
-      </div>
-      <div class="chat-frame-wrap">
-        <iframe
-          src="https://copilotstudio.microsoft.com/environments/Default-e15d7272-d6f9-4d21-935b-d0ab6559b57d/bots/cra7f_BCCDocumentationAssistantV3/webchat?__version__=2"
-          title="BCC Documentation Assistant"
-          allow="microphone"
-        ></iframe>
-      </div>
-    </main>
-
   </div>
+</header>
+
+<div class="layout">
+
+  <aside>
+    <p class="aside-heading">About this assistant</p>
+
+    <div class="info-card">
+      <p>
+        The <strong>BCC Documentation Assistant</strong> provides general guidance on UK Certificates of Origin and
+        Chamber certification procedures. It is advisory only and does not issue certificates or make binding determinations.
+      </p>
+    </div>
+
+    <p class="aside-heading">Important</p>
+
+    <div class="info-card">
+      <p>
+        Do not enter personal data or upload documents into this chat.
+        Responsibility for origin declarations and acceptance of goods remains with the exporter and issuing Chamber.
+      </p>
+    </div>
+
+    <p class="aside-heading">Status</p>
+    <div class="info-card">
+      <p>Public guidance service · Limited beta release</p>
+    </div>
+
+  </aside>
+
+  <main>
+
+    <div class="chat-header">
+      <div>
+        <strong>BCC Documentation Assistant</strong><br />
+        <span style="font-size:12px; color: var(--bcc-muted);">
+          Guidance on Chamber documentation and certification
+        </span>
+      </div>
+    </div>
+
+    <div class="chat-frame-wrap">
+      <iframe
+        src="https://copilotstudio.microsoft.com/environments/Default-e15d7272-d6f9-4d21-935b-d0ab6559b57d/bots/cra7f_BCCDocumentationAssistantV3/webchat?__version__=2"
+        title="BCC Documentation Assistant"
+        sandbox="allow-scripts allow-same-origin allow-forms"
+        loading="lazy">
+      </iframe>
+    </div>
+
+  </main>
+
+</div>
 
 </body>
 </html>
