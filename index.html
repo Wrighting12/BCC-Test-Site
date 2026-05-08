@@ -14,10 +14,15 @@
       --bcc-navy: #1a2f4e;
       --bcc-blue: #00539b;
       --bcc-gold: #c8a84b;
+      --bcc-gold-light: #f5e9c8;
       --bcc-light: #f4f6f9;
       --bcc-white: #ffffff;
       --bcc-border: #dde3ec;
       --bcc-muted: #6b7a92;
+      --bcc-success: #1a7a4a;
+      --bcc-success-bg: #e8f7ef;
+      --bcc-error: #b83232;
+      --bcc-error-bg: #fdeaea;
       --radius: 12px;
     }
 
@@ -28,6 +33,7 @@
       color: var(--bcc-navy);
     }
 
+    /* ── HEADER ── */
     header {
       background: var(--bcc-navy);
       color: var(--bcc-white);
@@ -75,12 +81,14 @@
       text-transform: uppercase;
     }
 
+    /* ── LAYOUT ── */
     .layout {
       display: grid;
-      grid-template-columns: 300px 1fr;
+      grid-template-columns: 300px 1fr 320px;
       height: calc(100vh - 64px);
     }
 
+    /* ── LEFT SIDEBAR ── */
     aside {
       background: var(--bcc-white);
       border-right: 1px solid var(--bcc-border);
@@ -111,10 +119,12 @@
       line-height: 1.6;
     }
 
+    /* ── MAIN CHAT ── */
     main {
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      border-right: 1px solid var(--bcc-border);
     }
 
     .chat-header {
@@ -129,6 +139,7 @@
     .chat-frame-wrap {
       flex: 1;
       padding: 1.5rem;
+      overflow: hidden;
     }
 
     iframe {
@@ -139,15 +150,361 @@
       background: var(--bcc-white);
     }
 
+    /* ── RIGHT UPLOAD PANEL ── */
+    .upload-panel {
+      background: var(--bcc-white);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    .upload-panel-header {
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid var(--bcc-border);
+      background: var(--bcc-white);
+    }
+
+    .upload-panel-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--bcc-navy);
+      margin-bottom: 2px;
+    }
+
+    .upload-panel-header p {
+      font-size: 12px;
+      color: var(--bcc-muted);
+      font-weight: 300;
+    }
+
+    .upload-panel-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    /* ── DROP ZONE ── */
+    .drop-zone {
+      border: 2px dashed var(--bcc-border);
+      border-radius: var(--radius);
+      padding: 2rem 1.25rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      background: var(--bcc-light);
+      position: relative;
+    }
+
+    .drop-zone:hover,
+    .drop-zone.drag-over {
+      border-color: var(--bcc-blue);
+      background: #eef4fb;
+    }
+
+    .drop-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
+
+    .drop-icon {
+      width: 40px;
+      height: 40px;
+      margin: 0 auto 10px;
+      background: var(--bcc-gold-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .drop-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--bcc-gold);
+      fill: none;
+    }
+
+    .drop-zone h3 {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--bcc-navy);
+      margin-bottom: 4px;
+    }
+
+    .drop-zone p {
+      font-size: 12px;
+      color: var(--bcc-muted);
+      font-weight: 300;
+      line-height: 1.5;
+    }
+
+    .drop-zone .browse-link {
+      color: var(--bcc-blue);
+      text-decoration: underline;
+      font-weight: 500;
+    }
+
+    /* ── ALLOWED TYPES TAGS ── */
+    .allowed-types {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .type-tag {
+      font-size: 11px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--bcc-light);
+      border: 1px solid var(--bcc-border);
+      color: var(--bcc-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ── FILE LIST ── */
+    .file-list-heading {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--bcc-muted);
+    }
+
+    .file-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .file-item {
+      background: var(--bcc-light);
+      border: 1px solid var(--bcc-border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: slideIn 0.2s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .file-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .file-icon.pdf  { background: #fdeaea; color: var(--bcc-error); }
+    .file-icon.doc  { background: #e8eef8; color: var(--bcc-blue); }
+    .file-icon.img  { background: #e8f7ef; color: var(--bcc-success); }
+    .file-icon.xls  { background: #e8f7ef; color: var(--bcc-success); }
+    .file-icon.other{ background: var(--bcc-gold-light); color: #8a6e1a; }
+
+    .file-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .file-name {
+      font-size: 13px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--bcc-navy);
+    }
+
+    .file-meta {
+      font-size: 11px;
+      color: var(--bcc-muted);
+      font-weight: 300;
+      margin-top: 1px;
+    }
+
+    .file-status {
+      font-size: 11px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .file-status.ready   { color: var(--bcc-success); }
+    .file-status.error   { color: var(--bcc-error); }
+    .file-status.uploading { color: var(--bcc-blue); }
+
+    .file-remove {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--bcc-muted);
+      padding: 2px;
+      display: flex;
+      align-items: center;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+      flex-shrink: 0;
+    }
+
+    .file-remove:hover {
+      color: var(--bcc-error);
+      background: var(--bcc-error-bg);
+    }
+
+    .file-remove svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    /* ── PROGRESS BAR ── */
+    .progress-bar-wrap {
+      height: 3px;
+      background: var(--bcc-border);
+      border-radius: 2px;
+      margin-top: 6px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: var(--bcc-blue);
+      border-radius: 2px;
+      transition: width 0.3s ease;
+    }
+
+    /* ── SUBMIT BUTTON ── */
+    .submit-btn {
+      width: 100%;
+      padding: 11px;
+      background: var(--bcc-blue);
+      color: var(--bcc-white);
+      border: none;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      background: #0066bb;
+    }
+
+    .submit-btn:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    .submit-btn:disabled {
+      background: var(--bcc-border);
+      color: var(--bcc-muted);
+      cursor: not-allowed;
+    }
+
+    .submit-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+    }
+
+    /* ── NOTICE BANNER ── */
+    .notice {
+      background: var(--bcc-gold-light);
+      border: 1px solid #e0c97a;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 12px;
+      font-weight: 300;
+      color: #6b4f00;
+      line-height: 1.5;
+      display: flex;
+      gap: 8px;
+    }
+
+    .notice svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      margin-top: 1px;
+      stroke: #9a7200;
+      fill: none;
+    }
+
+    /* ── TOAST ── */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.14);
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.25s, transform 0.25s;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    #toast.show { opacity: 1; transform: translateY(0); }
+    #toast.success { background: var(--bcc-success-bg); color: var(--bcc-success); border: 1px solid #a3d9be; }
+    #toast.error   { background: var(--bcc-error-bg);   color: var(--bcc-error);   border: 1px solid #f5b8b8; }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 1rem;
+      color: var(--bcc-muted);
+      font-size: 12px;
+      font-weight: 300;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      .layout { grid-template-columns: 1fr 300px; }
+      aside   { display: none; }
+    }
+
     @media (max-width: 768px) {
-      .layout { grid-template-columns: 1fr; }
-      aside { display: none; }
+      .layout { grid-template-columns: 1fr; grid-template-rows: 1fr auto; }
+      .upload-panel { border-top: 1px solid var(--bcc-border); max-height: 340px; }
     }
   </style>
 </head>
 
 <body>
 
+<!-- ── TOAST ── -->
+<div id="toast"></div>
+
+<!-- ── HEADER ── -->
 <header>
   <div class="header-left">
     <div class="logo-mark">B</div>
@@ -160,6 +517,7 @@
 
 <div class="layout">
 
+  <!-- ── LEFT SIDEBAR ── -->
   <aside>
     <p class="aside-heading">About this assistant</p>
 
@@ -174,7 +532,7 @@
 
     <div class="info-card">
       <p>
-        Do not enter personal data or upload documents into this chat.
+        Upload supporting documents in the panel on the right. Documents are used only for the purpose of this session's review.
         Responsibility for origin declarations and acceptance of goods remains with the exporter and issuing Chamber.
       </p>
     </div>
@@ -183,11 +541,10 @@
     <div class="info-card">
       <p>Public guidance service · Limited beta release</p>
     </div>
-
   </aside>
 
+  <!-- ── MAIN CHAT ── -->
   <main>
-
     <div class="chat-header">
       <div>
         <strong>BCC Documentation Assistant</strong><br />
@@ -205,10 +562,251 @@
         loading="lazy">
       </iframe>
     </div>
-
   </main>
 
+  <!-- ── RIGHT UPLOAD PANEL ── -->
+  <div class="upload-panel">
+
+    <div class="upload-panel-header">
+      <h2>Supporting Documents</h2>
+      <p>Upload files for the assistant to review</p>
+    </div>
+
+    <div class="upload-panel-body">
+
+      <!-- Notice -->
+      <div class="notice">
+        <svg viewBox="0 0 24 24" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span>Documents are processed for this session only and are not stored permanently.</span>
+      </div>
+
+      <!-- Drop zone -->
+      <div class="drop-zone" id="dropZone">
+        <input type="file" id="fileInput" multiple
+          accept=".pdf,.doc,.docx,.xls,.xlsx,.jpg,.jpeg,.png,.tiff,.tif,.csv" />
+        <div class="drop-icon">
+          <svg viewBox="0 0 24 24" stroke-width="1.8">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="17 8 12 3 7 8"/>
+            <line x1="12" y1="3" x2="12" y2="15"/>
+          </svg>
+        </div>
+        <h3>Drop files here</h3>
+        <p>or <span class="browse-link">browse to upload</span></p>
+        <p style="margin-top:6px;">Max 10 MB per file</p>
+      </div>
+
+      <!-- Accepted types -->
+      <div>
+        <p class="aside-heading" style="margin-bottom:8px;">Accepted formats</p>
+        <div class="allowed-types">
+          <span class="type-tag">PDF</span>
+          <span class="type-tag">DOC / DOCX</span>
+          <span class="type-tag">XLS / XLSX</span>
+          <span class="type-tag">JPG / PNG</span>
+          <span class="type-tag">TIFF</span>
+          <span class="type-tag">CSV</span>
+        </div>
+      </div>
+
+      <!-- File list -->
+      <div id="fileListSection" style="display:none; flex-direction:column; gap:8px;">
+        <div style="display:flex; align-items:center; justify-content:space-between;">
+          <p class="file-list-heading">Attached files</p>
+          <button id="clearAll" style="font-size:11px; background:none; border:none; cursor:pointer; color:var(--bcc-muted); font-family:'DM Sans',sans-serif; text-decoration:underline;">Clear all</button>
+        </div>
+        <div class="file-list" id="fileList"></div>
+      </div>
+
+      <!-- Submit -->
+      <button class="submit-btn" id="submitBtn" disabled>
+        <svg viewBox="0 0 24 24" stroke-width="1.8">
+          <polyline points="9 11 12 14 22 4"/>
+          <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+        </svg>
+        Submit for Review
+      </button>
+
+    </div>
+  </div>
+  <!-- end upload panel -->
+
 </div>
+
+<script>
+  const dropZone   = document.getElementById('dropZone');
+  const fileInput  = document.getElementById('fileInput');
+  const fileList   = document.getElementById('fileList');
+  const fileListSection = document.getElementById('fileListSection');
+  const submitBtn  = document.getElementById('submitBtn');
+  const clearAllBtn = document.getElementById('clearAll');
+  const toast      = document.getElementById('toast');
+
+  const MAX_SIZE   = 10 * 1024 * 1024; // 10 MB
+  const ALLOWED_TYPES = [
+    'application/pdf',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/vnd.ms-excel',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'image/jpeg','image/png','image/tiff',
+    'text/csv'
+  ];
+
+  let files = []; // { id, file, status, progress }
+
+  // ── Drag & drop events
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+    handleFiles(e.dataTransfer.files);
+  });
+
+  fileInput.addEventListener('change', () => {
+    handleFiles(fileInput.files);
+    fileInput.value = ''; // reset so same file can be re-added after removal
+  });
+
+  clearAllBtn.addEventListener('click', () => {
+    files = [];
+    renderFileList();
+  });
+
+  submitBtn.addEventListener('click', submitDocuments);
+
+  function handleFiles(incoming) {
+    Array.from(incoming).forEach(file => {
+      if (!ALLOWED_TYPES.includes(file.type)) {
+        showToast(`"${file.name}" is not a supported format.`, 'error');
+        return;
+      }
+      if (file.size > MAX_SIZE) {
+        showToast(`"${file.name}" exceeds the 10 MB limit.`, 'error');
+        return;
+      }
+      // Prevent duplicates by name+size
+      if (files.some(f => f.file.name === file.name && f.file.size === file.size)) {
+        showToast(`"${file.name}" is already attached.`, 'error');
+        return;
+      }
+      files.push({ id: crypto.randomUUID(), file, status: 'ready', progress: 100 });
+    });
+    renderFileList();
+  }
+
+  function renderFileList() {
+    fileList.innerHTML = '';
+
+    if (files.length === 0) {
+      fileListSection.style.display = 'none';
+      submitBtn.disabled = true;
+      return;
+    }
+
+    fileListSection.style.display = 'flex';
+    submitBtn.disabled = files.every(f => f.status === 'done');
+
+    files.forEach(entry => {
+      const { id, file, status, progress } = entry;
+      const ext = file.name.split('.').pop().toLowerCase();
+      const iconClass = ['pdf'].includes(ext) ? 'pdf'
+        : ['doc','docx'].includes(ext) ? 'doc'
+        : ['jpg','jpeg','png','tiff','tif'].includes(ext) ? 'img'
+        : ['xls','xlsx','csv'].includes(ext) ? 'xls'
+        : 'other';
+
+      const statusIcon = status === 'ready'   ? '✓ Ready'
+        : status === 'uploading' ? '↑ Uploading…'
+        : status === 'done'      ? '✓ Submitted'
+        : '✕ Error';
+
+      const item = document.createElement('div');
+      item.className = 'file-item';
+      item.dataset.id = id;
+      item.innerHTML = `
+        <div class="file-icon ${iconClass}">${ext.toUpperCase().slice(0,4)}</div>
+        <div class="file-info">
+          <div class="file-name" title="${file.name}">${file.name}</div>
+          <div class="file-meta">${formatSize(file.size)}</div>
+          ${status === 'uploading' ? `
+            <div class="progress-bar-wrap">
+              <div class="progress-bar" style="width:${progress}%"></div>
+            </div>` : ''}
+        </div>
+        <span class="file-status ${status}">${statusIcon}</span>
+        ${status !== 'done' ? `
+        <button class="file-remove" data-id="${id}" title="Remove file">
+          <svg viewBox="0 0 24 24" stroke-width="1.8" fill="none" stroke="currentColor">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>` : ''}
+      `;
+      fileList.appendChild(item);
+    });
+
+    // Remove button handlers
+    fileList.querySelectorAll('.file-remove').forEach(btn => {
+      btn.addEventListener('click', () => {
+        files = files.filter(f => f.id !== btn.dataset.id);
+        renderFileList();
+      });
+    });
+  }
+
+  function formatSize(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  }
+
+  // ── Submit — simulates upload with progress animation.
+  // Replace the body of this function with your real API call (e.g. FormData POST).
+  function submitDocuments() {
+    const pending = files.filter(f => f.status === 'ready');
+    if (!pending.length) return;
+
+    submitBtn.disabled = true;
+
+    pending.forEach((entry, i) => {
+      entry.status = 'uploading';
+      entry.progress = 0;
+      renderFileList();
+
+      // Simulate incremental progress
+      let prog = 0;
+      const interval = setInterval(() => {
+        prog = Math.min(prog + Math.random() * 25, 95);
+        entry.progress = prog;
+        renderFileList();
+      }, 200);
+
+      // Simulate completion after a short delay (replace with real upload logic)
+      setTimeout(() => {
+        clearInterval(interval);
+        entry.status = 'done';
+        entry.progress = 100;
+        renderFileList();
+
+        // After all done
+        if (files.every(f => f.status === 'done')) {
+          showToast('All documents submitted successfully.', 'success');
+          submitBtn.disabled = true;
+        }
+      }, 1400 + i * 600);
+    });
+  }
+
+  function showToast(msg, type) {
+    toast.textContent = msg;
+    toast.className = `show ${type}`;
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => {
+      toast.className = '';
+    }, 3500);
+  }
+</script>
 
 </body>
 </html>
