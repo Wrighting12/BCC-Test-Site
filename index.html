@@ -2,104 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
- a conversation  <title>BCC Copilot Studio – Auth Test</title>
-      const convoResponse = await fetch(CONVERSATIONS_URL, {
-        method: "POST",
-        headers: {
-          "Authorization": "Bearer " + ACCESS_TOKEN,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({})
-      });
-
-      const convoData = await convoResponse.json();
-      const conversationId = convoData.conversationId;
-
-      // Send a message
-      const messageResponse = await fetch(
-        `${CONVERSATIONS_URL}/${conversationId}/activities`,
-        {
-          method: "POST",
-          headers: {
-            "Authorization": "Bearer " + ACCESS_TOKEN,
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            type: "message",
-            text: text,
-            from: { id: "user" }
-          })
-        }
-      );
-
-      document.getElementById("output").textContent =
-        "Message sent successfully.\n\n" +
-        "Conversation ID:\n" + conversationId;
-
-    } catch (err) {
-      document.getElementById("output").textContent =
-        "Error:\n" + err.message;
-    }
-  }
-</script>
-
-</body>
-</html>
+  <title>BCC Documentation Assistant – Auth Test</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- MSAL -->
+  <script src="https://alcdn.msauth.net/browser/2.39.0/js/msal-browser.min.js"></script>
+
   <style>
     body {
       font-family: Segoe UI, Arial, sans-serif;
-      margin: 40px;
       background: #f5f6f7;
+      padding: 40px;
     }
-    #chat {
-      max-width: 600px;
-      background: white;
+    #container {
+      max-width: 700px;
+      background: #fff;
       padding: 20px;
       border-radius: 6px;
     }
     textarea {
       width: 100%;
-      height: 60px;
+      height: 70px;
+      margin-top: 10px;
     }
     button {
       margin-top: 10px;
       padding: 8px 16px;
     }
     pre {
-      background: #efefef;
+      background: #f0f0f0;
       padding: 10px;
-      overflow-x: auto;
+      white-space: pre-wrap;
     }
   </style>
 </head>
+
 <body>
 
-<h1>BCC Documentation Assistant – Test Page</h1>
+<div id="container">
 
-<div id="chat">
-  <p><strong>Status:</strong> Authenticated endpoint – token required</p>
+  <h1>BCC Documentation Assistant – Test Page</h1>
 
-  <textarea id="message" placeholder="Type a message…"></textarea>
-  <br />
-  <button onclick="sendMessage()">Send</button>
+  <!-- LOGIN -->
+  <button id="loginBtn" onclick="signIn()">Sign in with Microsoft</button>
 
-  <h3>Response</h3>
-  <pre id="output">No response yet</pre>
-</div>
-
-<script>
-  // ⚠️ This must be a REAL Entra ID access token
-  // Typically obtained via MSAL.js or a backend
-  const ACCESS_TOKEN = "PASTE_ACCESS_TOKEN_HERE";
-
-  const CONVERSATIONS_URL =
-    "https://defaulte15d7272d6f94d21935bd0ab6559b5.7d.environment.api.powerplatform.com" +
-    "/copilotstudio/dataverse-backed/authenticated/bots/" +
-    "cra7f_BCCDocumentationAssistantV3/conversations?api-version=2022-03-01-preview";
-
-  async function sendMessage() {
-    const text = document.getElementById("message").value;
-    if (!text) return;
-
-    try {
